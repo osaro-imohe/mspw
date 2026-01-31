@@ -8,6 +8,9 @@ dependencies:
   '@auth/prisma-adapter':
     specifier: ^2.7.2
     version: 2.11.1(@prisma/client@6.19.2)
+  '@hookform/resolvers':
+    specifier: ^5.2.2
+    version: 5.2.2(react-hook-form@7.71.1)
   '@prisma/client':
     specifier: ^6.6.0
     version: 6.19.2(prisma@6.19.2)(typescript@5.9.3)
@@ -26,6 +29,9 @@ dependencies:
   '@trpc/server':
     specifier: ^11.0.0
     version: 11.9.0(typescript@5.9.3)
+  bcryptjs:
+    specifier: ^3.0.3
+    version: 3.0.3
   next:
     specifier: ^15.2.3
     version: 15.5.11(@babel/core@7.28.6)(@playwright/test@1.58.1)(react-dom@19.2.4)(react@19.2.4)
@@ -38,6 +44,9 @@ dependencies:
   react-dom:
     specifier: ^19.0.0
     version: 19.2.4(react@19.2.4)
+  react-hook-form:
+    specifier: ^7.71.1
+    version: 7.71.1(react@19.2.4)
   server-only:
     specifier: ^0.0.1
     version: 0.0.1
@@ -64,6 +73,12 @@ devDependencies:
   '@testing-library/react':
     specifier: ^16.3.2
     version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3)(@types/react@19.2.10)(react-dom@19.2.4)(react@19.2.4)
+  '@testing-library/user-event':
+    specifier: ^14.6.1
+    version: 14.6.1(@testing-library/dom@10.4.1)
+  '@types/bcryptjs':
+    specifier: ^3.0.0
+    version: 3.0.0
   '@types/node':
     specifier: ^20.14.10
     version: 20.19.30
@@ -577,6 +592,15 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@hookform/resolvers@5.2.2(react-hook-form@7.71.1):
+    resolution: {integrity: sha512-A/IxlMLShx3KjV/HeTcTfaMxdwy690+L/ZADoeaTltLx+CVuzkeVIPuybK3jrRfw7YZnmdKsVVHAlEPIAEUNlA==}
+    peerDependencies:
+      react-hook-form: ^7.55.0
+    dependencies:
+      '@standard-schema/utils': 0.3.0
+      react-hook-form: 7.71.1(react@19.2.4)
+    dev: false
 
   /@img/colour@1.0.0:
     resolution: {integrity: sha512-A5P/LfWGFSl6nsckYtjw9da+19jB8hkJ6ACTGcDfEJ0aE+l2n2El7dsVM7UVHZQ9s2lmYMWlrS21YLy2IR1LUw==}
@@ -1185,6 +1209,10 @@ packages:
   /@standard-schema/spec@1.1.0:
     resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
 
+  /@standard-schema/utils@0.3.0:
+    resolution: {integrity: sha512-e7Mew686owMaPJVNNLs55PUvgz371nKgwsc4vxE49zsODpJEnxgxRo2y/OKrqueavXgZNMDVj3DdHFlaSAeU8g==}
+    dev: false
+
   /@swc/helpers@0.5.15:
     resolution: {integrity: sha512-JQ5TuMi45Owi4/BIMAJBoSQoOJu12oOk/gADqlcUL9JEdHB8vyjUSsxqeNXnmXHjYKMi2WcYtezGEEhqUI/E2g==}
     dependencies:
@@ -1444,6 +1472,15 @@ packages:
       react-dom: 19.2.4(react@19.2.4)
     dev: true
 
+  /@testing-library/user-event@14.6.1(@testing-library/dom@10.4.1):
+    resolution: {integrity: sha512-vq7fv0rnt+QTXgPxr5Hjc210p6YKq2kmdziLgnsZGgLJ9e6VAShx1pACLuRjd/AS/sr7phAR58OIIpf0LlmQNw==}
+    engines: {node: '>=12', npm: '>=6'}
+    peerDependencies:
+      '@testing-library/dom': '>=7.21.4'
+    dependencies:
+      '@testing-library/dom': 10.4.1
+    dev: true
+
   /@trpc/client@11.9.0(@trpc/server@11.9.0)(typescript@5.9.3):
     resolution: {integrity: sha512-3r4RT/GbR263QO+2gCPyrs5fEYaXua3/AzCs+GbWC09X0F+mVkyBpO3GRSDObiNU/N1YB597U7WGW3WA1d1TVw==}
     peerDependencies:
@@ -1511,6 +1548,13 @@ packages:
     resolution: {integrity: sha512-8PvcXf70gTDZBgt9ptxJ8elBeBjcLOAcOtoO/mPJjtji1+CdGbHgm77om1GrsPxsiE+uXIpNSK64UYaIwQXd4Q==}
     dependencies:
       '@babel/types': 7.28.6
+    dev: true
+
+  /@types/bcryptjs@3.0.0:
+    resolution: {integrity: sha512-WRZOuCuaz8UcZZE4R5HXTco2goQSI2XxjGY3hbM/xDvwmqFWd4ivooImsMx65OKM6CtNKbnZ5YL+YwAwK7c1dg==}
+    deprecated: This is a stub types definition. bcryptjs provides its own type definitions, so you do not need this installed.
+    dependencies:
+      bcryptjs: 3.0.3
     dev: true
 
   /@types/chai@5.2.3:
@@ -1697,6 +1741,10 @@ packages:
 
   /baseline-browser-mapping@2.9.19:
     resolution: {integrity: sha512-ipDqC8FrAl/76p2SSWKSI+H9tFwm7vYqXQrItCuiVPt26Km0jS+NzSsBWAaBusvSbQcfJG+JitdMm+wZAgTYqg==}
+    hasBin: true
+
+  /bcryptjs@3.0.3:
+    resolution: {integrity: sha512-GlF5wPWnSa/X5LKM1o0wz0suXIINz1iHRLvTS+sLyi7XPbe5ycmYI3DlZqVGZZtDgl4DmasFg7gOB3JYbphV5g==}
     hasBin: true
 
   /browserslist@4.28.1:
@@ -2425,6 +2473,15 @@ packages:
     dependencies:
       react: 19.2.4
       scheduler: 0.27.0
+
+  /react-hook-form@7.71.1(react@19.2.4):
+    resolution: {integrity: sha512-9SUJKCGKo8HUSsCO+y0CtqkqI5nNuaDqTxyqPsZPqIwudpj4rCrAz/jZV+jn57bx5gtZKOh3neQu94DXMc+w5w==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18 || ^19
+    dependencies:
+      react: 19.2.4
+    dev: false
 
   /react-is@17.0.2:
     resolution: {integrity: sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==}
