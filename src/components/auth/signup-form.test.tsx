@@ -48,6 +48,8 @@ describe("SignUpForm component", () => {
   it("renders all form fields", () => {
     render(<SignUpForm />);
 
+    expect(screen.getByLabelText("First name")).toBeInTheDocument();
+    expect(screen.getByLabelText("Last name")).toBeInTheDocument();
     expect(screen.getByLabelText("Email")).toBeInTheDocument();
     expect(screen.getByLabelText("Password")).toBeInTheDocument();
     expect(screen.getByLabelText("Confirm password")).toBeInTheDocument();
@@ -72,10 +74,27 @@ describe("SignUpForm component", () => {
     expect(screen.getByText("or continue with email")).toBeInTheDocument();
   });
 
+  it("shows validation error for missing first name", async () => {
+    const user = userEvent.setup();
+    render(<SignUpForm />);
+
+    await user.type(screen.getByLabelText("Last name"), "Doe");
+    await user.type(screen.getByLabelText("Email"), "test@example.com");
+    await user.type(screen.getByLabelText("Password"), "Password123");
+    await user.type(screen.getByLabelText("Confirm password"), "Password123");
+    await user.click(screen.getByRole("button", { name: /create account/i }));
+
+    await waitFor(() => {
+      expect(screen.getByText(/first name is required/i)).toBeInTheDocument();
+    });
+  });
+
   it("shows validation error for invalid email", async () => {
     const user = userEvent.setup();
     render(<SignUpForm />);
 
+    await user.type(screen.getByLabelText("First name"), "John");
+    await user.type(screen.getByLabelText("Last name"), "Doe");
     await user.type(screen.getByLabelText("Email"), "invalid-email");
     await user.type(screen.getByLabelText("Password"), "Password123");
     await user.type(screen.getByLabelText("Confirm password"), "Password123");
@@ -92,6 +111,8 @@ describe("SignUpForm component", () => {
     const user = userEvent.setup();
     render(<SignUpForm />);
 
+    await user.type(screen.getByLabelText("First name"), "John");
+    await user.type(screen.getByLabelText("Last name"), "Doe");
     await user.type(screen.getByLabelText("Email"), "test@example.com");
     await user.type(screen.getByLabelText("Password"), "weak");
     await user.type(screen.getByLabelText("Confirm password"), "weak");
@@ -108,6 +129,8 @@ describe("SignUpForm component", () => {
     const user = userEvent.setup();
     render(<SignUpForm />);
 
+    await user.type(screen.getByLabelText("First name"), "John");
+    await user.type(screen.getByLabelText("Last name"), "Doe");
     await user.type(screen.getByLabelText("Email"), "test@example.com");
     await user.type(screen.getByLabelText("Password"), "Password123");
     await user.type(
@@ -125,6 +148,8 @@ describe("SignUpForm component", () => {
     const user = userEvent.setup();
     render(<SignUpForm />);
 
+    await user.type(screen.getByLabelText("First name"), "John");
+    await user.type(screen.getByLabelText("Last name"), "Doe");
     await user.type(screen.getByLabelText("Email"), "test@example.com");
     await user.type(screen.getByLabelText("Password"), "Password123");
     await user.type(screen.getByLabelText("Confirm password"), "Password123");
@@ -132,6 +157,8 @@ describe("SignUpForm component", () => {
 
     await waitFor(() => {
       expect(mockMutate).toHaveBeenCalledWith({
+        firstName: "John",
+        lastName: "Doe",
         email: "test@example.com",
         password: "Password123",
         confirmPassword: "Password123",
@@ -170,6 +197,8 @@ describe("SignUpForm component", () => {
     const user = userEvent.setup();
     render(<SignUpForm />);
 
+    await user.type(screen.getByLabelText("First name"), "John");
+    await user.type(screen.getByLabelText("Last name"), "Doe");
     await user.type(screen.getByLabelText("Email"), "existing@example.com");
     await user.type(screen.getByLabelText("Password"), "Password123");
     await user.type(screen.getByLabelText("Confirm password"), "Password123");

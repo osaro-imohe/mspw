@@ -63,6 +63,25 @@ export function SignUpForm() {
           </div>
         )}
 
+        <div className="flex gap-3">
+          <Input
+            {...register("firstName")}
+            type="text"
+            label="First name"
+            placeholder="First name"
+            autoComplete="given-name"
+            error={errors.firstName?.message}
+          />
+          <Input
+            {...register("lastName")}
+            type="text"
+            label="Last name"
+            placeholder="Last name"
+            autoComplete="family-name"
+            error={errors.lastName?.message}
+          />
+        </div>
+
         <Input
           {...register("email")}
           type="email"
