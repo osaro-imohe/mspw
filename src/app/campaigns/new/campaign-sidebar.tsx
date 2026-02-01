@@ -7,18 +7,28 @@ const sections = [
     description: "Tell us about your product or service concept",
   },
   {
+    id: "site",
+    title: "2. Generate Site",
+    description: "Create a landing page for your campaign",
+  },
+  {
+    id: "media",
+    title: "3. Generate Media",
+    description: "Generate images and videos for your campaign",
+  },
+  {
     id: "icp",
-    title: "2. Select ICP",
+    title: "4. Select ICP",
     description: "Define your ideal customer profile",
   },
   {
     id: "pricing",
-    title: "3. Pricing",
+    title: "5. Pricing",
     description: "Set your pricing strategy and tiers",
   },
   {
     id: "variants",
-    title: "4. Variants",
+    title: "6. Variants",
     description: "Create different versions to test",
   },
 ];
