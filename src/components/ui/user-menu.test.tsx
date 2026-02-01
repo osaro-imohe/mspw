@@ -64,7 +64,7 @@ describe("UserMenu component", () => {
     await user.click(screen.getByRole("button"));
     await user.click(screen.getByText("Log out"));
 
-    expect(mockSignOut).toHaveBeenCalledWith({ callbackUrl: "/" });
+    expect(mockSignOut).toHaveBeenCalledWith({ callbackUrl: "/signin" });
   });
 
   it("closes dropdown when clicking outside", async () => {
@@ -95,5 +95,11 @@ describe("UserMenu component", () => {
       />
     );
     expect(screen.getByText("JD")).toBeInTheDocument();
+  });
+
+  it("avatar button has pointer cursor style", () => {
+    render(<UserMenu user={mockUser} />);
+    const avatarButton = screen.getByRole("button");
+    expect(avatarButton).toHaveClass("cursor-pointer");
   });
 });

@@ -4,7 +4,8 @@ import { type Metadata } from "next";
 import { Geist } from "next/font/google";
 
 import { Providers } from "~/components/providers";
-import { Navbar } from "~/components/navbar";
+import { Sidenav } from "~/components/sidenav";
+import { MainContent } from "~/components/main-content";
 
 const geist = Geist({
   subsets: ["latin"],
@@ -24,8 +25,8 @@ export default function RootLayout({
     <html lang="en" className={geist.variable}>
       <body>
         <Providers>
-          <Navbar />
-          {children}
+          <Sidenav />
+          <MainContent>{children}</MainContent>
         </Providers>
       </body>
     </html>
