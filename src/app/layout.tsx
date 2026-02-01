@@ -5,6 +5,7 @@ import { Geist } from "next/font/google";
 
 import { Providers } from "~/components/providers";
 import { Sidenav } from "~/components/sidenav";
+import { MainContent } from "~/components/main-content";
 
 const geist = Geist({
   subsets: ["latin"],
@@ -25,7 +26,7 @@ export default function RootLayout({
       <body>
         <Providers>
           <Sidenav />
-          <div className="lg:pl-64">{children}</div>
+          <MainContent>{children}</MainContent>
         </Providers>
       </body>
     </html>

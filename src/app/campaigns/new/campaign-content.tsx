@@ -2,16 +2,22 @@
 
 import { useState } from "react";
 import { CampaignSidebar, sections } from "./campaign-sidebar";
+import { useSidenavCollapsed } from "~/components/sidenav";
 
 export function CampaignContent() {
   const [selectedSection, setSelectedSection] = useState("idea");
+  const isSidenavCollapsed = useSidenavCollapsed();
 
   const currentSection = sections.find((s) => s.id === selectedSection);
 
   return (
     <div className="flex min-h-screen">
       {/* Secondary sidebar panel */}
-      <aside className="fixed left-64 top-0 h-screen w-80 border-r border-gray-200 bg-gray-50">
+      <aside
+        className={`fixed top-0 h-screen w-80 border-r border-gray-200 bg-gray-50 transition-all duration-300 ${
+          isSidenavCollapsed ? "left-16" : "left-64"
+        }`}
+      >
         <div className="flex h-16 items-center border-b border-gray-200 px-6">
           <h1 className="text-xl font-semibold text-gray-900">
             Create new campaign
