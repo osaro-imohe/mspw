@@ -24,27 +24,64 @@ describe("CampaignContent component", () => {
     expect(descriptions.length).toBeGreaterThanOrEqual(1);
   });
 
-  it("updates main content when selecting a different section", async () => {
+  it("updates main content when selecting Generate Site section", async () => {
+    const user = userEvent.setup();
+    render(<CampaignContent />);
+
+    // Click on "Generate Site" section
+    await user.click(screen.getByText("2. Generate Site"));
+
+    // Main content should update
+    expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
+      "2. Generate Site"
+    );
+    const mainContent = screen.getByRole("main");
+    expect(mainContent).toHaveTextContent(
+      "Create a landing page for your campaign"
+    );
+  });
+
+  it("updates main content when selecting Generate Media section", async () => {
+    const user = userEvent.setup();
+    render(<CampaignContent />);
+
+    // Click on "Generate Media" section
+    await user.click(screen.getByText("3. Generate Media"));
+
+    // Main content should update
+    expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
+      "3. Generate Media"
+    );
+    const mainContent = screen.getByRole("main");
+    expect(mainContent).toHaveTextContent(
+      "Generate images and videos for your campaign"
+    );
+  });
+
+  it("updates main content when selecting Select ICP section", async () => {
     const user = userEvent.setup();
     render(<CampaignContent />);
 
     // Click on "Select ICP" section
-    await user.click(screen.getByText("2. Select ICP"));
+    await user.click(screen.getByText("4. Select ICP"));
 
     // Main content should update
     expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
-      "2. Select ICP"
+      "4. Select ICP"
     );
   });
 
-  it("shows correct description for selected section", async () => {
+  it("shows correct description for Pricing section", async () => {
     const user = userEvent.setup();
     render(<CampaignContent />);
 
     // Click on "Pricing" section
-    await user.click(screen.getByText("3. Pricing"));
+    await user.click(screen.getByText("5. Pricing"));
 
     // Main content should show pricing description
+    expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
+      "5. Pricing"
+    );
     const mainContent = screen.getByRole("main");
     expect(mainContent).toHaveTextContent("Set your pricing strategy and tiers");
   });
@@ -54,10 +91,10 @@ describe("CampaignContent component", () => {
     render(<CampaignContent />);
 
     // Click on "Variants" section
-    await user.click(screen.getByText("4. Variants"));
+    await user.click(screen.getByText("6. Variants"));
 
     expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
-      "4. Variants"
+      "6. Variants"
     );
     const mainContent = screen.getByRole("main");
     expect(mainContent).toHaveTextContent("Create different versions to test");
@@ -72,16 +109,22 @@ describe("CampaignContent component", () => {
       "1. Describe Your Idea"
     );
 
-    // Switch to Pricing
-    await user.click(screen.getByText("3. Pricing"));
+    // Switch to Generate Site
+    await user.click(screen.getByText("2. Generate Site"));
     expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
-      "3. Pricing"
+      "2. Generate Site"
+    );
+
+    // Switch to Pricing
+    await user.click(screen.getByText("5. Pricing"));
+    expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
+      "5. Pricing"
     );
 
     // Switch to ICP
-    await user.click(screen.getByText("2. Select ICP"));
+    await user.click(screen.getByText("4. Select ICP"));
     expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
-      "2. Select ICP"
+      "4. Select ICP"
     );
 
     // Switch back to Describe Your Idea
@@ -99,8 +142,10 @@ describe("CampaignContent component", () => {
     expect(firstSectionTexts.length).toBeGreaterThanOrEqual(1);
 
     // Other sections only appear in sidebar
-    expect(screen.getByText("2. Select ICP")).toBeInTheDocument();
-    expect(screen.getByText("3. Pricing")).toBeInTheDocument();
-    expect(screen.getByText("4. Variants")).toBeInTheDocument();
+    expect(screen.getByText("2. Generate Site")).toBeInTheDocument();
+    expect(screen.getByText("3. Generate Media")).toBeInTheDocument();
+    expect(screen.getByText("4. Select ICP")).toBeInTheDocument();
+    expect(screen.getByText("5. Pricing")).toBeInTheDocument();
+    expect(screen.getByText("6. Variants")).toBeInTheDocument();
   });
 });
