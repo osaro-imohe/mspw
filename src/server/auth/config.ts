@@ -1,5 +1,5 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { type DefaultSession, type NextAuthConfig } from "next-auth";
+import { type NextAuthConfig } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
@@ -7,18 +7,29 @@ import bcrypt from "bcryptjs";
 import { db } from "~/server/db";
 import { signInSchema } from "~/lib/validations/auth";
 
-/**
- * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
- * object and keep type safety.
- *
- * @see https://next-auth.js.org/getting-started/typescript#module-augmentation
- */
+// Extend NextAuth types with our custom properties
 declare module "next-auth" {
-  interface Session extends DefaultSession {
+  interface User {
+    firstName: string;
+    lastName: string;
+  }
+  interface Session {
     user: {
       id: string;
-    } & DefaultSession["user"];
+      firstName: string;
+      lastName: string;
+      email: string;
+      image?: string | null;
+    };
   }
+}
+
+// Custom JWT type with our additional properties
+interface CustomJWT {
+  sub?: string;
+  firstName: string;
+  lastName: string;
+  [key: string]: unknown;
 }
 
 /**
@@ -64,13 +75,14 @@ export const authConfig = {
         return {
           id: user.id,
           email: user.email,
-          name: user.name,
+          firstName: user.firstName,
+          lastName: user.lastName,
           image: user.image,
         };
       },
     }),
   ],
-  adapter: PrismaAdapter(db),
+  adapter: PrismaAdapter(db) as NextAuthConfig["adapter"],
   session: {
     strategy: "jwt",
   },
@@ -78,16 +90,24 @@ export const authConfig = {
     signIn: "/signin",
   },
   callbacks: {
-    session: ({ session, token }) => ({
-      ...session,
-      user: {
-        ...session.user,
-        id: token.sub,
-      },
-    }),
+    session: ({ session, token }) => {
+      const customToken = token as unknown as CustomJWT;
+      return {
+        ...session,
+        user: {
+          id: customToken.sub!,
+          firstName: customToken.firstName,
+          lastName: customToken.lastName,
+          email: session.user.email,
+          image: session.user.image,
+        },
+      };
+    },
     jwt: ({ token, user }) => {
       if (user) {
         token.sub = user.id;
+        token.firstName = user.firstName;
+        token.lastName = user.lastName;
       }
       return token;
     },

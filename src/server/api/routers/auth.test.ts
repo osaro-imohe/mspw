@@ -45,6 +45,8 @@ describe("auth router", () => {
       mockDb.user.findUnique.mockResolvedValue(null);
       mockDb.user.create.mockResolvedValue({
         id: "user-123",
+        firstName: "John",
+        lastName: "Doe",
         email: "test@example.com",
       });
 
@@ -55,6 +57,8 @@ describe("auth router", () => {
       });
 
       const result = await caller.auth.signUp({
+        firstName: "John",
+        lastName: "Doe",
         email: "test@example.com",
         password: "Password123",
         confirmPassword: "Password123",
@@ -70,6 +74,8 @@ describe("auth router", () => {
 
       expect(mockDb.user.create).toHaveBeenCalledWith({
         data: {
+          firstName: "John",
+          lastName: "Doe",
           email: "test@example.com",
           password: "hashed_Password123",
         },
@@ -90,6 +96,8 @@ describe("auth router", () => {
 
       await expect(
         caller.auth.signUp({
+          firstName: "John",
+          lastName: "Doe",
           email: "test@example.com",
           password: "Password123",
           confirmPassword: "Password123",
@@ -106,6 +114,8 @@ describe("auth router", () => {
 
       await expect(
         caller.auth.signUp({
+          firstName: "John",
+          lastName: "Doe",
           email: "invalid-email",
           password: "Password123",
           confirmPassword: "Password123",
@@ -123,6 +133,8 @@ describe("auth router", () => {
       // Too short
       await expect(
         caller.auth.signUp({
+          firstName: "John",
+          lastName: "Doe",
           email: "test@example.com",
           password: "Pass1",
           confirmPassword: "Pass1",
@@ -139,6 +151,8 @@ describe("auth router", () => {
 
       await expect(
         caller.auth.signUp({
+          firstName: "John",
+          lastName: "Doe",
           email: "test@example.com",
           password: "Password123",
           confirmPassword: "DifferentPassword123",

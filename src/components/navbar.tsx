@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useSession, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { Button } from "~/components/ui/button";
+import { UserMenu } from "~/components/ui/user-menu";
 
 export function Navbar() {
   const { data: session, status } = useSession();
@@ -26,20 +27,15 @@ export function Navbar() {
 
           <div className="flex items-center gap-4">
             {status === "loading" ? (
-              <div className="h-8 w-20 animate-pulse rounded bg-gray-200" />
-            ) : session ? (
-              <>
-                <span className="text-sm text-gray-600">
-                  {session.user?.email}
-                </span>
-                <Button
-                  variant="outline"
-                  onClick={() => signOut({ callbackUrl: "/" })}
-                  className="w-auto"
-                >
-                  Log out
-                </Button>
-              </>
+              <div className="h-9 w-9 animate-pulse rounded-full bg-gray-200" />
+            ) : session?.user ? (
+              <UserMenu
+                user={{
+                  firstName: session.user.firstName ?? session.user.email?.charAt(0) ?? "U",
+                  lastName: session.user.lastName ?? "",
+                  email: session.user.email ?? "",
+                }}
+              />
             ) : (
               <>
                 <Link

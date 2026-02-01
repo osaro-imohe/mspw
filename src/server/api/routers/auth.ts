@@ -6,7 +6,7 @@ import { signUpSchema } from "~/lib/validations/auth";
 
 export const authRouter = createTRPCRouter({
   signUp: publicProcedure.input(signUpSchema).mutation(async ({ ctx, input }) => {
-    const { email, password } = input;
+    const { firstName, lastName, email, password } = input;
 
     const existingUser = await ctx.db.user.findUnique({
       where: { email },
@@ -23,6 +23,8 @@ export const authRouter = createTRPCRouter({
 
     const user = await ctx.db.user.create({
       data: {
+        firstName,
+        lastName,
         email,
         password: hashedPassword,
       },

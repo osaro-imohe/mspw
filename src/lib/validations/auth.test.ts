@@ -4,6 +4,8 @@ import { signUpSchema, signInSchema } from "./auth";
 describe("signUpSchema", () => {
   it("validates correct input", () => {
     const result = signUpSchema.safeParse({
+      firstName: "John",
+      lastName: "Doe",
       email: "test@example.com",
       password: "Password123",
       confirmPassword: "Password123",
@@ -13,6 +15,8 @@ describe("signUpSchema", () => {
 
   it("rejects invalid email", () => {
     const result = signUpSchema.safeParse({
+      firstName: "John",
+      lastName: "Doe",
       email: "invalid-email",
       password: "Password123",
       confirmPassword: "Password123",
@@ -22,6 +26,8 @@ describe("signUpSchema", () => {
 
   it("rejects weak password - too short", () => {
     const result = signUpSchema.safeParse({
+      firstName: "John",
+      lastName: "Doe",
       email: "test@example.com",
       password: "Pass1",
       confirmPassword: "Pass1",
@@ -31,6 +37,8 @@ describe("signUpSchema", () => {
 
   it("rejects password without uppercase", () => {
     const result = signUpSchema.safeParse({
+      firstName: "John",
+      lastName: "Doe",
       email: "test@example.com",
       password: "password123",
       confirmPassword: "password123",
@@ -40,6 +48,8 @@ describe("signUpSchema", () => {
 
   it("rejects password without lowercase", () => {
     const result = signUpSchema.safeParse({
+      firstName: "John",
+      lastName: "Doe",
       email: "test@example.com",
       password: "PASSWORD123",
       confirmPassword: "PASSWORD123",
@@ -49,6 +59,8 @@ describe("signUpSchema", () => {
 
   it("rejects password without number", () => {
     const result = signUpSchema.safeParse({
+      firstName: "John",
+      lastName: "Doe",
       email: "test@example.com",
       password: "PasswordABC",
       confirmPassword: "PasswordABC",
@@ -58,6 +70,8 @@ describe("signUpSchema", () => {
 
   it("rejects mismatched passwords", () => {
     const result = signUpSchema.safeParse({
+      firstName: "John",
+      lastName: "Doe",
       email: "test@example.com",
       password: "Password123",
       confirmPassword: "Password456",
